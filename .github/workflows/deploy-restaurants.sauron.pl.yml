@@ -20,5 +20,5 @@ jobs:
           FTP_PASS: ${{ secrets.FTP_PASS }}
           FTP_HOST: ${{ secrets.FTP_HOST }}
         run: |
-          lftp -c "set ftp:ssl-allow no; open -u $FTP_USER,$FTP_PASS $FTP_HOST; mirror -Rnev ./dist/ ./ --ignore-time --parallel=10 --exclude --exclude cgi-bin/ --exclude --exclude .ftpquota --exclude .well-known/"
+          lftp -c "set ftp:ssl-allow no; open -u $FTP_USER,$FTP_PASS $FTP_HOST; mirror -Rnev ./dist/ ./ --ignore-time --parallel=10 --exclude cgi-bin/ --exclude .ftpquota --exclude .well-known/"
       - run: echo "🍏 This job's status is ${{ job.status }}."
