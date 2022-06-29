@@ -13,7 +13,7 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: Install lftp
         run: |
-          apt-get update -qq && apt-get install -y -qq lftp
+          sudo apt-get install -y -qq lftp
       - name: Sync with restaurants.sauron.pl
         env:
           FTP_USER: ${{ secrets.FTP_USER }}
