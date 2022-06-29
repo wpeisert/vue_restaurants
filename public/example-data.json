@@ -1,0 +1,58 @@
+{
+  "company": {
+    "id": 1,
+    "name": "Piwnica Świdnicka"
+  },
+  "settings": {
+    "show_all_products": true
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Piwo"
+    },
+    {
+      "id": 2,
+      "name": "Napoje"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "category_id": 1,
+      "name": "Tyskie 0.5l",
+      "price": "7.50"
+    },
+    {
+      "id": 2,
+      "category_id": 1,
+      "name": "Żubr 0.5l",
+      "price": "8.50"
+    },
+    {
+      "id": 3,
+      "category_id": 1,
+      "name": "Koźlak Żywe 0.5l",
+      "price": "12.00"
+    },
+
+    {
+      "id": 4,
+      "category_id": 2,
+      "name": "Coca-cola 0.3l",
+      "price": "7.50"
+    },
+    {
+      "id": 5,
+      "category_id": 2,
+      "name": "Yerba mix 0.4l",
+      "price": "8.50"
+    },
+    {
+      "id": 6,
+      "category_id": 2,
+      "name": "Flat white",
+      "price": "14.00"
+    }
+  ]
+}
