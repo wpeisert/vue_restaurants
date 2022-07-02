@@ -1,13 +1,17 @@
 <template>
   <div v-if="!loaded"><h1>LOADING !!!</h1></div>
-  <input type="button" :value="category.name" v-for="category in categories" v-bind:key="category.id"
-  @click="showProducts(category.id)"
-  />
-  <ul>
-    <li v-for="product in products" v-bind:key="product.id">
-      <b>{{ product.name }}</b> {{ product.description }} price: {{ product.price }}
-    </li>
-  </ul>
+  <section class="categories">
+    <input type="button" :value="category.name" v-for="category in categories" v-bind:key="category.id"
+           @click="showProducts(category.id)" class="m-3 "
+    />
+  </section>
+  <section class="products">
+    <ul>
+      <li v-for="product in products" v-bind:key="product.id" class="product-item">
+        <b>{{ product.name }}</b> {{ product.description }} price: {{ product.price }} zł
+      </li>
+    </ul>
+  </section>
 
 </template>
 
@@ -15,7 +19,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'CategoriesAll',
+  name: 'ProductsAll',
   data: function () {
     return {
       data: {},
