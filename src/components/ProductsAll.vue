@@ -10,8 +10,8 @@
     <div class="order-count" :class="{'order-hidden': getOrderCount() === 0}">
       {{ getOrderCount() }} &nbsp; &nbsp; &nbsp;
     </div>
-    <div class="order-count" :class="{'order-hidden': getOrderCount() === 0}">
-      {{ getOrderTotal() }} zł
+    <div class="order-total" :class="{'order-hidden': getOrderCount() === 0}">
+      <nobr>{{ getOrderTotal() }} zł</nobr>
     </div>
     <div style="clear: both;"></div>
   </div>
@@ -197,7 +197,6 @@ div {
 }
 .categories {
   float: left;
-  min-width: 20rem;
 }
 .category-button {
   display: inline-flex;
@@ -222,7 +221,7 @@ div {
 .order-hidden {
   display: none;
 }
-.order-count {
+.order-count, .order-total {
   font-weight: bold;
   font-size: 20px;
   color: #880000;
