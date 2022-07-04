@@ -16,7 +16,8 @@ jobs:
         with:
           node-version: 16.x
       - name: build
-        run: npm run build --if-present
+      - run: npm install -g @vue/cli@latest
+      - run: npm run build --if-present
       - name: Install lftp
         run: |
           sudo apt-get install -y -qq lftp
