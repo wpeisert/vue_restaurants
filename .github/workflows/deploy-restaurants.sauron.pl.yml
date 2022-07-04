@@ -15,9 +15,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+      - name: install vue-cli
+        run: npm install -g @vue/cli@latest
       - name: build
-      - run: npm install -g @vue/cli@latest
-      - run: npm run build --if-present
+        run: npm run build --if-present
       - name: Install lftp
         run: |
           sudo apt-get install -y -qq lftp
