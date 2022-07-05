@@ -7,11 +7,9 @@
              :class="{'category-selected': category.id === category_id}"
       />
     </div>
-    <div class="order-count" :class="{'order-hidden': getOrderCount() === 0}">
-      {{ getOrderCount() }} &nbsp; &nbsp; &nbsp;
-    </div>
     <div class="order-total" :class="{'order-hidden': getOrderCount() === 0}">
-      <nobr>{{ getOrderTotal() }} zł</nobr>
+      items: {{ getOrderCount() }}<br />
+      <nobr>total: {{ getOrderTotal() }} zł</nobr>
     </div>
     <div style="clear: both;"></div>
   </div>
@@ -27,7 +25,9 @@
         <div class="product-description">{{ product.description }}</div>
         <div class="product-order" :class="{'order-hidden': getOrderProductCount(product.id) === 0}">
           <input type="button" class="product-minus" value="-" v-on:click.stop="decrProduct(product.id)"/>
-          <input type="button" class="product-count" :value="getOrderProductCount(product.id)" />
+          <input type="text" class="product-count" :value="getOrderProductCount(product.id)"
+                 @change="setProductCount(product.id, value)"
+          />
           <input type="button" class="product-plus" value="+" v-on:click.stop="incrProduct(product.id)"/>
         </div>
         <div style="clear: both;"></div>
@@ -90,6 +90,9 @@ export default {
         return 0;
       }
       return this.order.products[productId];
+    },
+    setOrderProductCount(productId, value) {
+      return this.order.products[productId] = value;
     },
     clickProduct(productId) {
       if (this.order.products[productId]) {
