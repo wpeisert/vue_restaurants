@@ -1,10 +1,10 @@
 <template>
-  <div v-if="!loaded"><h1>LOADING !!!</h1></div>
+  <div v-if="!$store.state.loaded"><h1>LOADING !!!</h1></div>
   <div class="main">
     <div class="categories">
-      <input type="button" :value="category.name" v-for="category in categories" v-bind:key="category.id"
-             @click="category_id = category.id" class="category-button"
-             :class="{'category-selected': category.id === category_id}"
+      <input type="button" :value="category.name" v-for="category in $store.state.categories" v-bind:key="category.id"
+             @click="$store.state.category_id = category.id" class="category-button"
+             :class="{'category-selected': category.id === $store.state.category_id}"
       />
     </div>
     <div class="order-total" :class="{'order-hidden': getOrderCount() === 0}">
@@ -15,7 +15,8 @@
   </div>
   <section class="products">
     <div class="product"
-         v-for="product in data.products.filter(prod => this.category_id === 0 || prod.category_id === this.category_id)"
+         v-for="product in $store.state.data.products.filter(prod => $store.state.category_id === 0 || prod.category_id ===
+         $store.state.category_id)"
          v-bind:key="product.id"
          @click="clickProduct(product.id)"
     >
@@ -43,44 +44,21 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
   name: 'ProductsAll',
   data: function () {
     return {
-      data: {
-        products: [],
-      },
-      categories: [],
-      products: [],
-      loaded: false,
-      category_id: 0,
       order: { products: []}
     }
   },
   mounted () {
-    this.loadAll();
+    if (!this.$store.state.products.length) {
+      this.$store.dispatch('loadData');
+    }
+    //this.loadAll();
   },
   methods: {
-    loadAll() {
-      axios.get('/products/example-data.json')
-          .then((response) => {
-            this.data = response.data;
-            this.categories = this.data.categories;
-            if (this.data.settings.show_all_products) {
-              this.categories.unshift({id: 0, name: "Wszystko"});
-              this.category_id = 0;
-            } else {
-              this.category_id = this.categories[0].id;
-            }
-            this.loaded = true;
-          })
-          .catch(function (error) {
-            console.log(error);
-            alert(error);
-          });
-    },
     getOrderProductCount(productId) {
       if (!this.order || !this.order.products || !this.order.products[productId]) {
         return 0;
