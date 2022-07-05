@@ -3,7 +3,7 @@
   <div class="main">
     <div class="categories">
       <input type="button" :value="category.name" v-for="category in categories" v-bind:key="category.id"
-             @click="showProducts(category.id)" class="category-button"
+             @click="category_id = category.id" class="category-button"
              :class="{'category-selected': category.id === category_id}"
       />
     </div>
@@ -14,7 +14,11 @@
     <div style="clear: both;"></div>
   </div>
   <section class="products">
-    <div class="product" v-for="product in products" v-bind:key="product.id" @click="clickProduct(product.id)">
+    <div class="product"
+         v-for="product in data.products.filter(prod => this.category_id === 0 || prod.category_id === this.category_id)"
+         v-bind:key="product.id"
+         @click="clickProduct(product.id)"
+    >
       <div class="product-image-wrapper">
         <img class="product-image" v-bind:src="'/products/images/' + product.image" alt="image">
       </div>
@@ -45,7 +49,9 @@ export default {
   name: 'ProductsAll',
   data: function () {
     return {
-      data: {},
+      data: {
+        products: [],
+      },
       categories: [],
       products: [],
       loaded: false,
@@ -57,15 +63,6 @@ export default {
     this.loadAll();
   },
   methods: {
-    showProducts(id) {
-      this.category_id = id
-      this.products = [];
-      for (let product of this.data.products) {
-        if (id === 0 || id === product.category_id) {
-          this.products.push(product);
-        }
-      }
-    },
     loadAll() {
       axios.get('/products/example-data.json')
           .then((response) => {
@@ -78,7 +75,6 @@ export default {
               this.category_id = this.categories[0].id;
             }
             this.loaded = true;
-            this.showProducts(this.category_id);
           })
           .catch(function (error) {
             console.log(error);
@@ -107,7 +103,7 @@ export default {
       this.order.products[productId]--;
     },
     getOrderCount() {
-      var count = 0;
+      let count = 0;
       for (var cnt of this.order.products) {
         if (cnt) {
           count += cnt;
@@ -116,7 +112,7 @@ export default {
       return count;
     },
     getOrderTotal() {
-      var total = 0;
+      let total = 0;
       for (let index = 0; index < this.order.products.length; ++index) {
         if (!this.order.products[index]) {
           continue;
