@@ -9,7 +9,7 @@
     </div>
     <div class="order-total" :class="{'order-hidden': getOrderCount() === 0}">
       items: {{ getOrderCount() }}<br />
-      <nobr>total: {{ getOrderTotal() }} zł</nobr>
+      total: {{ getOrderTotal() }} zł
     </div>
     <div style="clear: both;"></div>
   </div>
@@ -233,6 +233,7 @@ div {
   border-radius: 10px;
   float: right;
   text-align: center;
+  white-space: nowrap;
 }
 
 .product-minus, .product-plus {
