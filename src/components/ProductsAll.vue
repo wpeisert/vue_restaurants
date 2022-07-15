@@ -2,8 +2,9 @@
   <div v-if="!$store.state.loaded"><h1>LOADING !!!</h1></div>
   <div class="main">
     <div class="categories">
-      <input type="button" :value="category.name" v-for="category in $store.state.categories" v-bind:key="category.id"
-             @click="$store.state.category_id = category.id" class="category-button"
+      <input type="button" :value="category.name" v-for="category in $store.getters.getCategories()"
+             v-bind:key="category.id"
+             @click="chooseCategory(category.id)" class="category-button"
              :class="{'category-selected': category.id === $store.state.category_id}"
       />
     </div>
@@ -59,6 +60,12 @@ export default {
     //this.loadAll();
   },
   methods: {
+    chooseCategory(category_id) {
+      this.$store.commit('chooseCategory', category_id);
+    },
+
+
+
     getOrderProductCount(productId) {
       if (!this.order || !this.order.products || !this.order.products[productId]) {
         return 0;

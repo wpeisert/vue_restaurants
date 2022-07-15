@@ -32,14 +32,24 @@ const store = createStore({
                     console.log(error);
                     alert(error);
                 });
-        }
+        },
         // call: store.commit('increment')
+
+        chooseCategory(state, category_id) {
+            state.category_id = category_id;
+        },
     },
     actions: {
         loadData(context) {
             context.commit('loadData');
         },
         // call: store.dispatch('increment')
+    },
+    getters: {
+        getCategories(state) {
+            state.categories;
+        }
+
     }
 })
 
